@@ -2,8 +2,8 @@ from distutils.core import setup
 
 setup(
     name='pytorchcodehelpers',
-    version='0.0.1',
-    packages=[''],
+    version='0.1',
+    packages=['pytorchcodehelpers'],
     url='',
     license='Apache License Version 2.0',
     author='David',

@@ -9,7 +9,8 @@ if __name__ == '__main__':
     line_start = int(sys.argv[2])
     line_end = int(sys.argv[3])
 
-    # file_path, line_start, line_end = ['/home/david/Documents/ws/ws/plygrnd/pytorchsize.py', 73, 109]
+    file_name = file_path.split("/")[-1][:-3]
+    import_str = "from " + file_name + " import *"
 
     lines = []
 
@@ -22,8 +23,7 @@ if __name__ == '__main__':
     inpt_size = inpt_size if inpt_size else "1 3 128 128"
     inpt_size = tuple(map(int, inpt_size.split(" ")))
 
-
-    net_inspect = InspectNet(input_size=(inpt_size))
+    net_inspect = InspectNet(input_size=(inpt_size), pre_exec_str=import_str)
     net_inspect.inspect_net(lines)
 
     get_class_anwser = input("Get automatic generated class ? (default: N) : ")

@@ -19,7 +19,9 @@ class InspectNet(object):
 
         return var_name
 
-    def __init__(self, net_fn=None, input_size=None, name="NewModule"):
+    def __init__(self, net_fn=None, input_size=None, name="NewModule", pre_exec_str =""):
+
+        self.pre_exec_str = pre_exec_str
 
         self.name = name
         self.size_list = []
@@ -34,6 +36,8 @@ class InspectNet(object):
             self.inspect_net(net_fn, input_size)
 
     def inspect_net(self, net_fn, input_size=None):
+
+        exec(self.pre_exec_str)
 
         if input_size is None:
             input_size = self.input_size

@@ -19,7 +19,9 @@ class InspectNet(object):
 
         return var_name
 
-    def __init__(self, net_fn=None, input_size=None, name="NewModule"):
+    def __init__(self, net_fn=None, input_size=None, name="NewModule", pre_exec_str =""):
+
+        self.pre_exec_str = pre_exec_str
 
         self.name = name
         self.size_list = []
@@ -34,6 +36,8 @@ class InspectNet(object):
             self.inspect_net(net_fn, input_size)
 
     def inspect_net(self, net_fn, input_size=None):
+
+        exec(self.pre_exec_str)
 
         if input_size is None:
             input_size = self.input_size
@@ -202,7 +206,7 @@ class InspectNet(object):
 
             prev_var_name = var_name
 
-            print('%-15s' % var_name, " : ", tuple(last_tensor.size()))
+            print('%-10s' % var_name, " : ", tuple(last_tensor.size()))
             size_list.append((var_name, tuple(last_tensor.size())))
 
         self.size_list = size_list
@@ -341,7 +345,7 @@ class AbstrModule():
 
     @staticmethod
     def from_model(mod, name=""):
-        m = AbstrModule(name=name, desc=mod.__repr__(), cls_name=mod.__class__.__name__, module=mod,
+        m = AbstrModule(name=name, desc=repr(mod), cls_name=mod.__class__.__name__, module=mod,
                         python_module=mod.__module__)
         # print(m.cls_name)
         for key, module in mod._modules.items():

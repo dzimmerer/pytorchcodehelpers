@@ -135,6 +135,9 @@ class InspectNet(object):
                 fwrd_list.append("")
                 print("")
                 continue
+            elif line.startswith("#!"):
+                init_list.append(line)
+                line = line[2:]
             elif line.startswith("#"):
                 init_list.append(line)
                 # print(line)
